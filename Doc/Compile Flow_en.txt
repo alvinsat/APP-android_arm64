@@ -1,0 +1,99 @@
+Description:
+1 lib-android_arm64 stores third-party library files required to compile the Blender library, including library files and header files. The source files of each library file will be uploaded later.
+At present, for simple processing, the paths of different library files are hard-coded in the blender library. If necessary, you can replace D:/FreeProjects/Blender/Blender with the folder path you need.
+2 Utilities-android_arm64 stores auxiliary tools required to compile the Blender library, including generating DNA file projects, generating RNA file projects, and other software.
+3 Blender-android_arm64 stores Blender library files. The initial version is the blender-v3.6-release branch pulled from the blender warehouse, and based on this branch, synchronizes
+local modifications, and continues to modify in the warehouse later.
+4 APP-android_arm64 stores the source files and resource files required to compile the APP.
+5 Local compilation file structure
+D:/FreeProjects/Blender/Blender/lib-android_arm64
+----Alembic
+----blosc
+----boost
+----BoostIOStream
+----BoostLocal
+----BoostPython
+----……
+----……
+----……
+D:/FreeProjects/Blender/Blender/Utilities-android_arm64
+----【MakeBlender】（Android Studio project compiles Blender library）
+----【MakeSDNA】 （Android Studio project compiles Blender library, used to generate dna_verify.c and other DNA related files）
+----【MakeBlender】（Android Studio project compiles Blender library, used to generate rna_xr_gen.c and other RNA related files）
+D:/FreeProjects/Blender/Blender/Blender-android_arm64
+----build_files
+----doc
+----extern
+----intern
+----lib
+----locale
+----release
+----scripts
+----source
+----tests
+----tools
+D:/FreeProjects/Blender/Blender/APP-android_arm64
+----Doc
+----【OBlender】 (Android Studio project compiles OBlender APP)
+----app (Android Studio project main project)
+----OBLFiles (resource files required by Android Studio project blender)
+
+Tools:
+1 Android Studio 4.1.1
+1) CMake 3.10.2.4988404 3.18.1 3.22.1
+2) NDK 21.4.7075529
+3) SDK 30.0.3 Compile Sdk Version 30 (API 30: Android 11.0 (R))
+4) Android Gradle Plugin Version 4.1.1
+5) Gradle Version 6.5
+2 All third-party libraries, auxiliary tools, Blender libraries, and APPs are compiled with the above tools.
+
+Process:
+1) Download the source code of the four repositories of lib-android_arm64, Utilities-android_arm64, Blender-android_arm64, and APP-android_arm64
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2) 【Android Studio Project】 Compile 【makeblender】 for the first time until libmakesdna.a is generated
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+3) 【Android Studio Project】 Compile 【MakeSDNA】
+4) Copy the makesdna folder under Blender-android_arm64 to /data/data/com.epai.makesdna/
+5) Run MakeSDNA
+6) Copy /data/data/com.epai.makesdna/dna.c, /data/data/com.epai.makesdna/dna_type_offsets.h, /data/data/com.epai.makesdna/dna_verify.c files under /data/data/com.epai.makesdna/ to any location
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+7) Comment out the
+add_custom_command(
+OUTPUT
+${CMAKE_CURRENT_BINARY_DIR}/dna.c
+${CMAKE_CURRENT_BINARY_DIR}/dna_type_offsets.h
+${CMAKE_CURRENT_BINARY_DIR}/dna_verify.c
+COMMAND
+"$<TARGET_FILE:makesdna>"
+${CMAKE_CURRENT_BINARY_DIR}/dna.c
+${CMAKE_CURRENT_BINARY_DIR}/dna_type_offsets.h
+${CMAKE_CURRENT_BINARY_DIR}/dna_verify.c
+${CMAKE_SOURCE_DIR}/source/blender/makesdna/
+DEPENDS makesdna
+)
+8）Copy msgfmt.exe, datatoc.exe and other files in D:\FreeProjects\Blender\Blender\Utilities-android_arm64\Utilities folder
+to D:/FreeProjects/Blender/Blender/Utilities-android_arm64/MakeBlender/app/.cxx/cmake/release/arm64-v8a/source/creator/ folder
+Copy msgfmt.exe, datatoc.exe and other files in the D:\FreeProjects\Blender\Blender\Utilities-android_arm64\Utilities folder
+to the D:/FreeProjects/Blender/Blender/Utilities-android_arm64/MakeBlender/app/.cxx/cmake/release/arm64-v8a/bin/ folder
+9) Replace "/data/data/com.epai.makesdna/makesdna" in dna_verify.c with "D:/FreeProjects/Blender/Blender/Blender-android_arm64/source/blender/makesdna"
+10) Copy the above three files to D:/FreeProjects/Blender/Blender/Utilities-android_arm64/MakeBlender/app/.cxx/cmake/release/arm64-v8a/source/blender/makesdna/intern Folder
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+11) 【Android Studio Project】 Compile 【makeblender】 for the second time until libmakesrna.a is generated
+12) 【Android Studio Project】 Compile 【MakeSRNA】
+13) Run MakeSRNA
+14) Copy /data/data/com.epai.makesrna/*.c *.h to any location
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+15) Comment D:/FreeProjects/Blender/Blender/Blender-android_arm64/folder
+add_custom_command(
+OUTPUT ${GENSRC}
+COMMAND "$<TARGET_FILE:makesrna>" ${CMAKE_CURRENT_BINARY_DIR}/ ${CMAKE_CURRENT_BINARY_DIR}/../
+DEPENDS makesrna
+)
+16) Copy /data/data/com.epai.makesrna/*.c *.h to D:\FreeProjects\Blender\Blender\Utilities-android_arm64\MakeBlender\app\.cxx\cmake\release\arm64-v8a\source\blender\makesrna\intern folder
+17) Copy /data/data/com.epai.makesrna/*.h to D:\FreeProjects\Blender\Blender\Blender-android_arm64\source\blender\makesrna\ folder
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+18) 【Android Studio project】 Compile for the third time 【makeblender】 until all libraries are compiled
+-----
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+19) 【Android Studio project】 Compile 【OBlender】
+20) Run the generated APP
