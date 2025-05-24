@@ -1,0 +1,3 @@
+include ':OBLFiles'
+include ':app'
+rootProject.name = "OBlender"

@@ -1,0 +1,169 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion '30.0.3'
+
+    defaultConfig {
+        applicationId "com.epai.oblender"
+        minSdkVersion 28
+        targetSdkVersion 30
+        versionCode 2
+        versionName "0.0.3"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        externalNativeBuild {
+            cmake {
+                abiFilters "arm64-v8a"
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
+            version "3.10.2"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    ndkVersion '21.4.7075529'
+	packagingOptions {
+        pickFirst 'lib/arm64-v8a/libboostiostreams.so'
+        pickFirst 'lib/arm64-v8a/libboostlocale.so'
+        pickFirst 'lib/arm64-v8a/libcpython.so'
+        pickFirst 'lib/arm64-v8a/libcrypto.so'
+        pickFirst 'lib/arm64-v8a/libssl.so'
+        pickFirst 'lib/arm64-v8a/libexpat.so'
+        pickFirst 'lib/arm64-v8a/libfreetype.so'
+        pickFirst 'lib/arm64-v8a/libicuc.so'
+        pickFirst 'lib/arm64-v8a/libImath-3_0.so'
+        pickFirst 'lib/arm64-v8a/libOpenColorIO.so'
+        pickFirst 'lib/arm64-v8a/libOpenEXR-3_0.so'
+        pickFirst 'lib/arm64-v8a/libOpenEXRUtil-3_0.so'
+        pickFirst 'lib/arm64-v8a/libIex-3_0.so'
+        pickFirst 'lib/arm64-v8a/libIlmThread-3_0.so'
+        pickFirst 'lib/arm64-v8a/libOpenImageIO.so'
+        pickFirst 'lib/arm64-v8a/libOpenImageIO_Util.so'
+        pickFirst 'lib/arm64-v8a/libosdCPU.so'
+        pickFirst 'lib/arm64-v8a/libosdGPU.so'
+        pickFirst 'lib/arm64-v8a/libsqlite.so'
+        pickFirst 'lib/arm64-v8a/libzip.so'
+        pickFirst 'lib/arm64-v8a/libzstd.so'
+        pickFirst 'lib/arm64-v8a/libOpenImageIO.so'
+        pickFirst 'lib/arm64-v8a/libOpenImageIO_Util.so'
+        pickFirst 'lib/arm64-v8a/libGeneratedSaxParser.so'
+        pickFirst 'lib/arm64-v8a/libxml.so'
+        pickFirst 'lib/arm64-v8a/libOpenCOLLADASaxFrameworkLoader.so'
+        pickFirst 'lib/arm64-v8a/libOpenCOLLADAFramework.so'
+        pickFirst 'lib/arm64-v8a/libUTF.so'
+        pickFirst 'lib/arm64-v8a/libOpenCOLLADABaseUtils.so'
+        pickFirst 'lib/arm64-v8a/libOpenCOLLADAStreamWriter.so'
+        pickFirst 'lib/arm64-v8a/libpcre.so'
+        pickFirst 'lib/arm64-v8a/libftoa.so'
+        pickFirst 'lib/arm64-v8a/libMathMLSolver.so'
+        pickFirst 'lib/arm64-v8a/libbuffer.so'
+        pickFirst 'lib/arm64-v8a/libzlib.so'
+        pickFirst 'lib/arm64-v8a/libtbb.so'
+        pickFirst 'lib/arm64-v8a/libtbbmalloc.so'
+        pickFirst 'lib/arm64-v8a/libtbbmalloc_proxy.so'
+        pickFirst 'lib/arm64-v8a/libopenvdb.so'
+        pickFirst 'lib/arm64-v8a/libpng16.so'
+        pickFirst 'lib/arm64-v8a/libavcodec.so'
+        pickFirst 'lib/arm64-v8a/libavdevice.so'
+        pickFirst 'lib/arm64-v8a/libavfilter.so'
+        pickFirst 'lib/arm64-v8a/libavformat.so'
+        pickFirst 'lib/arm64-v8a/libavutil.so'
+        pickFirst 'lib/arm64-v8a/libswresample.so'
+        pickFirst 'lib/arm64-v8a/libswscale.so'
+        pickFirst 'lib/arm64-v8a/libSDL2.so'
+        pickFirst 'lib/arm64-v8a/libopenal.so'
+        pickFirst 'lib/arm64-v8a/libpotrace.so'
+        pickFirst 'lib/arm64-v8a/libembree4.so'
+        pickFirst 'lib/arm64-v8a/libgmp.so'
+        pickFirst 'lib/arm64-v8a/libgmpxx.so'
+        pickFirst 'lib/arm64-v8a/libdnnl.so'
+        pickFirst 'lib/arm64-v8a/libOpenImageDenoise.so'
+        pickFirst 'lib/arm64-v8a/libOpenImageDenoise_device_cpu.so'
+        pickFirst 'lib/arm64-v8a/libOpenImageDenoise_core.so'
+        pickFirst 'lib/arm64-v8a/libhdTiny.so'
+        pickFirst 'lib/arm64-v8a/libusd_ar.so'
+        pickFirst 'lib/arm64-v8a/libusd_arch.so'
+        pickFirst 'lib/arm64-v8a/libusd_cameraUtil.so'
+        pickFirst 'lib/arm64-v8a/libusd_geomUtil.so'
+        pickFirst 'lib/arm64-v8a/libusd_gf.so'
+        pickFirst 'lib/arm64-v8a/libusd_hd.so'
+        pickFirst 'lib/arm64-v8a/libusd_hdar.so'
+        pickFirst 'lib/arm64-v8a/libusd_hdGp.so'
+        pickFirst 'lib/arm64-v8a/libusd_hdsi.so'
+        pickFirst 'lib/arm64-v8a/libusd_hf.so'
+        pickFirst 'lib/arm64-v8a/libusd_hgi.so'
+        pickFirst 'lib/arm64-v8a/libusd_hio.so'
+        pickFirst 'lib/arm64-v8a/libusd_js.so'
+        pickFirst 'lib/arm64-v8a/libusd_kind.so'
+        pickFirst 'lib/arm64-v8a/libusd_ndr.so'
+        pickFirst 'lib/arm64-v8a/libusd_pcp.so'
+        pickFirst 'lib/arm64-v8a/libusd_plug.so'
+        pickFirst 'lib/arm64-v8a/libusd_pxOsd.so'
+        pickFirst 'lib/arm64-v8a/libusd_sdf.so'
+        pickFirst 'lib/arm64-v8a/libusd_sdr.so'
+        pickFirst 'lib/arm64-v8a/libusd_tf.so'
+        pickFirst 'lib/arm64-v8a/libusd_trace.so'
+        pickFirst 'lib/arm64-v8a/libusd_usd.so'
+        pickFirst 'lib/arm64-v8a/libusd_usdGeom.so'
+        pickFirst 'lib/arm64-v8a/libusd_usdHydra.so'
+        pickFirst 'lib/arm64-v8a/libusd_usdImaging.so'
+        pickFirst 'lib/arm64-v8a/libusd_usdLux.so'
+        pickFirst 'lib/arm64-v8a/libusd_usdMedia.so'
+        pickFirst 'lib/arm64-v8a/libusd_usdPhysics.so'
+        pickFirst 'lib/arm64-v8a/libusd_usdProc.so'
+        pickFirst 'lib/arm64-v8a/libusd_usdProcImaging.so'
+        pickFirst 'lib/arm64-v8a/libusd_usdRender.so'
+        pickFirst 'lib/arm64-v8a/libusd_usdRi.so'
+        pickFirst 'lib/arm64-v8a/libusd_usdRiImaging.so'
+        pickFirst 'lib/arm64-v8a/libusd_usdShade.so'
+        pickFirst 'lib/arm64-v8a/libusd_usdSkel.so'
+        pickFirst 'lib/arm64-v8a/libusd_usdSkelImaging.so'
+        pickFirst 'lib/arm64-v8a/libusd_usdUI.so'
+        pickFirst 'lib/arm64-v8a/libusd_usdUtils.so'
+        pickFirst 'lib/arm64-v8a/libusd_usdVol.so'
+        pickFirst 'lib/arm64-v8a/libusd_usdVolImaging.so'
+        pickFirst 'lib/arm64-v8a/libusd_vt.so'
+        pickFirst 'lib/arm64-v8a/libusd_work.so'
+        pickFirst 'lib/arm64-v8a/libsdrGlslfx.so'
+        pickFirst 'lib/arm64-v8a/libusdShaders.so'
+        pickFirst 'lib/arm64-v8a/libAlembic.so'
+        pickFirst 'lib/arm64-v8a/libfftw3.so'
+        pickFirst 'lib/arm64-v8a/libopenpgl.so'
+        pickFirst 'lib/arm64-v8a/libboostpython.so'
+    }
+    ndkVersion '21.4.7075529'
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                //在这里修改apk文件名
+                outputFileName = "blender on Android v${variant.versionName}.apk"
+            }
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation project(path: ':OBLFiles')
+}
